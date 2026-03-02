@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Areeba Medics Dashboard</title>
+
+<style>
+body{font-family:Arial;margin:0;background:#f4f8fb;padding:20px;}
+h2{text-align:center;color:#0d6efd;}
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+input{
+padding:10px;
+margin:5px;
+width:28%;
+border-radius:5px;
+border:1px solid #ccc;
+}
+button{
+padding:8px 12px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+.add{background:#0d6efd;color:white;}
+.edit{background:#ffc107;}
+.delete{background:#dc3545;color:white;}
+table{
+width:100%;
+border-collapse:collapse;
+}
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:center;
+}
+th{background:#0d6efd;color:white;}
+</style>
+</head>
+
+<body>
+
+<h2>🌟 Areeba Medics Dashboard</h2>
+
+<div class="card">
+<h3>Add Patient</h3>
+<input id="name" placeholder="Patient Name">
+<input id="service" placeholder="Service">
+<input id="phone" placeholder="Phone">
+<button class="add" onclick="save()">Save</button>
+</div>
+
+<div class="card">
+<h3>Patient List</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Service</th>
+<th>Phone</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="data"></tbody>
+</table>
+</div>
+
+<script>
+let editIndex=null;
+
+function getData(){
+ return JSON.parse(localStorage.getItem("patients"))||[];
+}
+
+function save(){
+ let name=document.getElementById("name").value;
+ let service=document.getElementById("service").value;
+ let phone=document.getElementById("phone").value;
+
+ if(name==""||service==""||phone==""){
+   alert("Fill all fields");
+   return;
+ }
+
+ let data=getData();
+
+ if(editIndex===null){
+   data.push({name,service,phone});
+ }else{
+   data[editIndex]={name,service,phone};
+   editIndex=null;
+ }
+
+ localStorage.setItem("patients",JSON.stringify(data));
+ document.getElementById("name").value="";
+ document.getElementById("service").value="";
+ document.getElementById("phone").value="";
+ render();
+}
+
+function render(){
+ let data=getData();
+ let html="";
+ data.forEach((item,i)=>{
+   html+=`
+   <tr>
+   <td>${item.name}</td>
+   <td>${item.service}</td>
+   <td>${item.phone}</td>
+   <td>
+   <button class="edit" onclick="edit(${i})">Edit</button>
+   <button class="delete" onclick="del(${i})">Delete</button>
+   </td>
+   </tr>
+   `;
+ });
+ document.getElementById("data").innerHTML=html;
+}
+
+function edit(i){
+ let data=getData();
+ document.getElementById("name").value=data[i].name;
+ document.getElementById("service").value=data[i].service;
+ document.getElementById("phone").value=data[i].phone;
+ editIndex=i;
+}
+
+function del(i){
+ let data=getData();
+ data.splice(i,1);
+ localStorage.setItem("patients",JSON.stringify(data));
+ render();
+}
+
+render();
+</script>
+
+</body>
+</html>
