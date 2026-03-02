@@ -1,95 +1,205 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Areeba Medics - Home Patient Care</title>
-
-<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d6efd">
-<link rel="apple-touch-icon" href="logo.png">
-
+<link rel="manifest" href="manifest.json">
 <style>
-body{
-  font-family:Arial;
-  margin:0;
-  background:#f2f7fb;
-  text-align:center;
-}
-header{
-  background:#0d6efd;
-  color:white;
-  padding:20px;
-}
-.logo{
-  width:100px;
-}
-.section{
-  padding:30px;
-}
-button{
-  padding:12px 20px;
-  background:#0d6efd;
-  color:white;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
-.services{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  max-width:600px;
-  margin:auto;
-}
-.card{
-  background:white;
-  padding:15px;
-  border-radius:10px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-footer{
-  background:#eee;
-  padding:20px;
-}
+body{font-family:Arial;margin:0;background:#f4f8fb;}
+header{background:#0d6efd;color:white;padding:15px;text-align:center;}
+header img{width:80px;border-radius:10px;}
+h2,h3{text-align:center;color:#0d6efd;}
+.container{max-width:900px;margin:auto;padding:10px;}
+.card{background:white;padding:15px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);margin-bottom:20px;}
+input,select{padding:8px;margin:5px;width:28%;border-radius:5px;border:1px solid #ccc;}
+button{padding:8px 12px;border:none;border-radius:5px;cursor:pointer;margin:3px;}
+.add-btn{background:#0d6efd;color:white;}
+.edit-btn{background:#ffc107;}
+.delete-btn{background:#dc3545;color:white;}
+table{width:100%;border-collapse:collapse;}
+th,td{padding:8px;border-bottom:1px solid #ddd;text-align:center;}
+th{background:#0d6efd;color:white;}
+.pagination{text-align:center;margin-top:10px;}
+.page-btn{margin:3px;background:#0d6efd;color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;}
 </style>
 </head>
-
 <body>
 
 <header>
-  <img src="logo.png" class="logo">
-  <h2>Areeba Medics</h2>
-  <p>Home Patient Care Services</p>
+<img src="logo.png" alt="Areeba Medics Logo">
+<h2>Areeba Medics</h2>
+<p>Home Patient Care Services</p>
 </header>
 
-<div class="section">
-  <h3>Need Nurse Today?</h3>
-  <p>We’ll reach in 30–60 Minutes!</p>
-  <button onclick="location.href='dashboard.html'">Open Dashboard</button>
+<div class="container">
+
+<h3>Patient / Staff / Invoice Dashboard</h3>
+
+<div class="card">
+<h3>Add Patient</h3>
+<input type="text" id="pname" placeholder="Patient Name">
+<input type="text" id="pservice" placeholder="Service">
+<input type="text" id="pphone" placeholder="Phone">
+<button class="add-btn" onclick="savePatient()">Save</button>
 </div>
 
-<div class="section">
-<h3>Our Services</h3>
-<div class="services">
-  <div class="card">IV Drip & Injections</div>
-  <div class="card">Wound Dressing</div>
-  <div class="card">Physiotherapy</div>
-  <div class="card">Elderly Care</div>
-  <div class="card">Mother & Baby Care</div>
-  <div class="card">24/7 Nursing</div>
-</div>
+<div class="card">
+<h3>Patient List</h3>
+<table>
+<thead>
+<tr><th>Name</th><th>Service</th><th>Phone</th><th>Actions</th></tr>
+</thead>
+<tbody id="ptable"></tbody>
+</table>
+<div class="pagination" id="patientPagination"></div>
 </div>
 
-<footer>
-📞 0325 9965766 <br>
-Islamabad & Rawalpindi
-</footer>
+<div class="card">
+<h3>Add Staff</h3>
+<input type="text" id="sname" placeholder="Staff Name">
+<input type="text" id="role" placeholder="Role (Admin/Staff)">
+<input type="text" id="sphone" placeholder="Phone">
+<button class="add-btn" onclick="saveStaff()">Save Staff</button>
+</div>
+
+<div class="card">
+<h3>Staff List</h3>
+<table>
+<thead>
+<tr><th>Name</th><th>Role</th><th>Phone</th><th>Actions</th></tr>
+</thead>
+<tbody id="stable"></tbody>
+</table>
+<div class="pagination" id="staffPagination"></div>
+</div>
+
+</div>
 
 <script>
-if("serviceWorker" in navigator){
- navigator.serviceWorker.register("service-worker.js");
+// Service Worker for PWA
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('service-worker.js');
 }
+
+// Local Storage Functions
+let patientEditIndex=null;
+let staffEditIndex=null;
+let patientPage=1;
+let staffPage=1;
+const rowsPerPage=4;
+
+// Patient Functions
+function getPatients(){ return JSON.parse(localStorage.getItem("patients"))||[]; }
+function saveToStoragePatients(data){ localStorage.setItem("patients",JSON.stringify(data)); }
+
+function savePatient(){
+let name=document.getElementById("pname").value;
+let service=document.getElementById("pservice").value;
+let phone=document.getElementById("pphone").value;
+if(name==""||service==""||phone==""){alert("Fill all fields");return;}
+let data=getPatients();
+if(patientEditIndex===null){ data.push({name,service,phone}); }
+else{ data[patientEditIndex]={name,service,phone}; patientEditIndex=null; }
+saveToStoragePatients(data);
+document.getElementById("pname").value="";document.getElementById("pservice").value="";document.getElementById("pphone").value="";
+renderPatients();
+}
+
+function renderPatients(){
+let data=getPatients();
+let tbody=document.getElementById("ptable");
+tbody.innerHTML="";
+let start=(patientPage-1)*rowsPerPage; let end=start+rowsPerPage;
+let paginated=data.slice(start,end);
+paginated.forEach((p,i)=>{
+tbody.innerHTML+=`<tr>
+<td>${p.name}</td>
+<td>${p.service}</td>
+<td>${p.phone}</td>
+<td>
+<button class="edit-btn" onclick="editPatient(${start+i})">Edit</button>
+<button class="delete-btn" onclick="deletePatient(${start+i})">Delete</button>
+</td>
+</tr>`;});
+renderPatientPagination(data.length);
+}
+
+function editPatient(i){
+let data=getPatients();
+document.getElementById("pname").value=data[i].name;
+document.getElementById("pservice").value=data[i].service;
+document.getElementById("pphone").value=data[i].phone;
+patientEditIndex=i;
+}
+
+function deletePatient(i){
+let data=getPatients(); data.splice(i,1); saveToStoragePatients(data); renderPatients();
+}
+
+function renderPatientPagination(total){
+let pages=Math.ceil(total/rowsPerPage);
+let pagDiv=document.getElementById("patientPagination"); pagDiv.innerHTML="";
+for(let i=1;i<=pages;i++){
+pagDiv.innerHTML+=`<button class="page-btn" onclick="patientPage=${i};renderPatients()">${i}</button>`;}}
+
+// Staff Functions
+function getStaff(){ return JSON.parse(localStorage.getItem("staff"))||[]; }
+function saveToStorageStaff(data){ localStorage.setItem("staff",JSON.stringify(data)); }
+
+function saveStaff(){
+let name=document.getElementById("sname").value;
+let role=document.getElementById("role").value;
+let phone=document.getElementById("sphone").value;
+if(name==""||role==""||phone==""){alert("Fill all fields");return;}
+let data=getStaff();
+if(staffEditIndex===null){ data.push({name,role,phone}); }
+else{ data[staffEditIndex]={name,role,phone}; staffEditIndex=null; }
+saveToStorageStaff(data);
+document.getElementById("sname").value="";document.getElementById("role").value="";document.getElementById("sphone").value="";
+renderStaff();
+}
+
+function renderStaff(){
+let data=getStaff();
+let tbody=document.getElementById("stable");
+tbody.innerHTML="";
+let start=(staffPage-1)*rowsPerPage; let end=start+rowsPerPage;
+let paginated=data.slice(start,end);
+paginated.forEach((s,i)=>{
+tbody.innerHTML+=`<tr>
+<td>${s.name}</td>
+<td>${s.role}</td>
+<td>${s.phone}</td>
+<td>
+<button class="edit-btn" onclick="editStaff(${start+i})">Edit</button>
+<button class="delete-btn" onclick="deleteStaff(${start+i})">Delete</button>
+</td>
+</tr>`;});
+renderStaffPagination(data.length);
+}
+
+function editStaff(i){
+let data=getStaff();
+document.getElementById("sname").value=data[i].name;
+document.getElementById("role").value=data[i].role;
+document.getElementById("sphone").value=data[i].phone;
+staffEditIndex=i;
+}
+
+function deleteStaff(i){
+let data=getStaff(); data.splice(i,1); saveToStorageStaff(data); renderStaff();
+}
+
+function renderStaffPagination(total){
+let pages=Math.ceil(total/rowsPerPage);
+let pagDiv=document.getElementById("staffPagination"); pagDiv.innerHTML="";
+for(let i=1;i<=pages;i++){
+pagDiv.innerHTML+=`<button class="page-btn" onclick="staffPage=${i};renderStaff()">${i}</button>`;}}
+
+// Initial Render
+renderPatients(); renderStaff();
 </script>
 
 </body>
