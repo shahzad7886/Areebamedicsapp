@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Areeba Medics - Patient Manager</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: #f2f7fb;
+    margin:0;
+    padding:20px;
+}
+
+h2{
+    text-align:center;
+    color:#0d6efd;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+input{
+    padding:10px;
+    margin:5px;
+    width:28%;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    padding:8px 12px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.add-btn{
+    background:#0d6efd;
+    color:white;
+}
+
+.edit-btn{
+    background:#ffc107;
+}
+
+.delete-btn{
+    background:#dc3545;
+    color:white;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+th{
+    background:#0d6efd;
+    color:white;
+}
+
+.pagination{
+    text-align:center;
+    margin-top:15px;
+}
+
+.page-btn{
+    margin:3px;
+    background:#0d6efd;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🌟 Areeba Medics Patient Management</h2>
+
+<div class="card">
+    <h3>Add / Edit Patient</h3>
+    <input type="text" id="name" placeholder="Patient Name">
+    <input type="text" id="service" placeholder="Service">
+    <input type="text" id="phone" placeholder="Phone">
+    <button class="add-btn" onclick="saveData()">Save</button>
+</div>
+
+<div class="card">
+    <h3>Patient List</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Service</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <div class="pagination" id="pagination"></div>
+</div>
+
+</div>
+
+<script>
+let editIndex = null;
+let currentPage = 1;
+const rowsPerPage = 4;
+
+function getData(){
+    return JSON.parse(localStorage.getItem("patients")) || [];
+}
+
+function saveToStorage(data){
+    localStorage.setItem("patients", JSON.stringify(data));
+}
+
+function saveData(){
+    let name = document.getElementById("name").value;
+    let service = document.getElementById("service").value;
+    let phone = document.getElementById("phone").value;
+
+    if(name === "" || service === "" || phone === ""){
+        alert("Fill all fields");
+        return;
+    }
+
+    let data = getData();
+
+    if(editIndex === null){
+        data.push({name, service, phone});
+    } else {
+        data[editIndex] = {name, service, phone};
+        editIndex = null;
+    }
+
+    saveToStorage(data);
+    document.getElementById("name").value="";
+    document.getElementById("service").value="";
+    document.getElementById("phone").value="";
+
+    renderTable();
+}
+
+function renderTable(){
+    let data = getData();
+    let tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML="";
+
+    let start = (currentPage - 1) * rowsPerPage;
+    let end = start + rowsPerPage;
+    let paginatedData = data.slice(start, end);
+
+    paginatedData.forEach((item,index)=>{
+        let row = `
+        <tr>
+            <td>${item.name}</td>
+            <td>${item.service}</td>
+            <td>${item.phone}</td>
+            <td>
+                <button class="edit-btn" onclick="editData(${start + index})">Edit</button>
+                <button class="delete-btn" onclick="deleteData(${start + index})">Delete</button>
+            </td>
+        </tr>
+        `;
+        tableBody.innerHTML += row;
+    });
+
+    renderPagination(data.length);
+}
+
+function renderPagination(totalRows){
+    let pageCount = Math.ceil(totalRows / rowsPerPage);
+    let pagination = document.getElementById("pagination");
+    pagination.innerHTML="";
+
+    for(let i=1;i<=pageCount;i++){
+        pagination.innerHTML += 
+        `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
+    }
+}
+
+function changePage(page){
+    currentPage = page;
+    renderTable();
+}
+
+function editData(index){
+    let data = getData();
+    document.getElementById("name").value = data[index].name;
+    document.getElementById("service").value = data[index].service;
+    document.getElementById("phone").value = data[index].phone;
+    editIndex = index;
+}
+
+function deleteData(index){
+    let data = getData();
+    data.splice(index,1);
+    saveToStorage(data);
+    renderTable();
+}
+
+renderTable();
+</script>
+
+</body>
+</html>
