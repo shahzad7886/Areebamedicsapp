@@ -3,224 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Areeba Medics - Patient Manager</title>
+<title>Areeba Medics - Home Patient Care</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d6efd">
+<link rel="apple-touch-icon" href="logo.png">
 
 <style>
 body{
-    font-family: Arial, sans-serif;
-    background: #f2f7fb;
-    margin:0;
-    padding:20px;
+  font-family:Arial;
+  margin:0;
+  background:#f2f7fb;
+  text-align:center;
 }
-
-h2{
-    text-align:center;
-    color:#0d6efd;
+header{
+  background:#0d6efd;
+  color:white;
+  padding:20px;
 }
-
-.container{
-    max-width:900px;
-    margin:auto;
+.logo{
+  width:100px;
 }
-
-.card{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-    margin-bottom:20px;
+.section{
+  padding:30px;
 }
-
-input{
-    padding:10px;
-    margin:5px;
-    width:28%;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-
 button{
-    padding:8px 12px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
+  padding:12px 20px;
+  background:#0d6efd;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
 }
-
-.add-btn{
-    background:#0d6efd;
-    color:white;
+.services{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  max-width:600px;
+  margin:auto;
 }
-
-.edit-btn{
-    background:#ffc107;
+.card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
-
-.delete-btn{
-    background:#dc3545;
-    color:white;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th,td{
-    padding:10px;
-    border-bottom:1px solid #ddd;
-    text-align:center;
-}
-
-th{
-    background:#0d6efd;
-    color:white;
-}
-
-.pagination{
-    text-align:center;
-    margin-top:15px;
-}
-
-.page-btn{
-    margin:3px;
-    background:#0d6efd;
-    color:white;
+footer{
+  background:#eee;
+  padding:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<header>
+  <img src="logo.png" class="logo">
+  <h2>Areeba Medics</h2>
+  <p>Home Patient Care Services</p>
+</header>
 
-<h2>🌟 Areeba Medics Patient Management</h2>
-
-<div class="card">
-    <h3>Add / Edit Patient</h3>
-    <input type="text" id="name" placeholder="Patient Name">
-    <input type="text" id="service" placeholder="Service">
-    <input type="text" id="phone" placeholder="Phone">
-    <button class="add-btn" onclick="saveData()">Save</button>
+<div class="section">
+  <h3>Need Nurse Today?</h3>
+  <p>We’ll reach in 30–60 Minutes!</p>
+  <button onclick="location.href='dashboard.html'">Open Dashboard</button>
 </div>
 
-<div class="card">
-    <h3>Patient List</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Service</th>
-                <th>Phone</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-    </table>
-
-    <div class="pagination" id="pagination"></div>
+<div class="section">
+<h3>Our Services</h3>
+<div class="services">
+  <div class="card">IV Drip & Injections</div>
+  <div class="card">Wound Dressing</div>
+  <div class="card">Physiotherapy</div>
+  <div class="card">Elderly Care</div>
+  <div class="card">Mother & Baby Care</div>
+  <div class="card">24/7 Nursing</div>
+</div>
 </div>
 
-</div>
+<footer>
+📞 0325 9965766 <br>
+Islamabad & Rawalpindi
+</footer>
 
 <script>
-let editIndex = null;
-let currentPage = 1;
-const rowsPerPage = 4;
-
-function getData(){
-    return JSON.parse(localStorage.getItem("patients")) || [];
+if("serviceWorker" in navigator){
+ navigator.serviceWorker.register("service-worker.js");
 }
-
-function saveToStorage(data){
-    localStorage.setItem("patients", JSON.stringify(data));
-}
-
-function saveData(){
-    let name = document.getElementById("name").value;
-    let service = document.getElementById("service").value;
-    let phone = document.getElementById("phone").value;
-
-    if(name === "" || service === "" || phone === ""){
-        alert("Fill all fields");
-        return;
-    }
-
-    let data = getData();
-
-    if(editIndex === null){
-        data.push({name, service, phone});
-    } else {
-        data[editIndex] = {name, service, phone};
-        editIndex = null;
-    }
-
-    saveToStorage(data);
-    document.getElementById("name").value="";
-    document.getElementById("service").value="";
-    document.getElementById("phone").value="";
-
-    renderTable();
-}
-
-function renderTable(){
-    let data = getData();
-    let tableBody = document.getElementById("tableBody");
-    tableBody.innerHTML="";
-
-    let start = (currentPage - 1) * rowsPerPage;
-    let end = start + rowsPerPage;
-    let paginatedData = data.slice(start, end);
-
-    paginatedData.forEach((item,index)=>{
-        let row = `
-        <tr>
-            <td>${item.name}</td>
-            <td>${item.service}</td>
-            <td>${item.phone}</td>
-            <td>
-                <button class="edit-btn" onclick="editData(${start + index})">Edit</button>
-                <button class="delete-btn" onclick="deleteData(${start + index})">Delete</button>
-            </td>
-        </tr>
-        `;
-        tableBody.innerHTML += row;
-    });
-
-    renderPagination(data.length);
-}
-
-function renderPagination(totalRows){
-    let pageCount = Math.ceil(totalRows / rowsPerPage);
-    let pagination = document.getElementById("pagination");
-    pagination.innerHTML="";
-
-    for(let i=1;i<=pageCount;i++){
-        pagination.innerHTML += 
-        `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
-    }
-}
-
-function changePage(page){
-    currentPage = page;
-    renderTable();
-}
-
-function editData(index){
-    let data = getData();
-    document.getElementById("name").value = data[index].name;
-    document.getElementById("service").value = data[index].service;
-    document.getElementById("phone").value = data[index].phone;
-    editIndex = index;
-}
-
-function deleteData(index){
-    let data = getData();
-    data.splice(index,1);
-    saveToStorage(data);
-    renderTable();
-}
-
-renderTable();
 </script>
 
 </body>
