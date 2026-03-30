@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Areeba Medics Form</title>
+<title>Areeba Medics Agreement</title>
 
-<!-- html2canvas -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 body {
   font-family: Arial;
-  background: #f4f6f9;
+  background: #eef2f7;
   text-align: center;
 }
 
-.form-box {
-  margin: 20px;
+.form-box input {
+  display: block;
+  margin: 5px auto;
+  padding: 8px;
+  width: 260px;
 }
 
-input {
+.form-box label {
   display: block;
-  margin: 8px auto;
-  padding: 10px;
-  width: 260px;
+  margin-top: 10px;
 }
 
 button {
@@ -34,18 +34,34 @@ button {
   cursor: pointer;
 }
 
+/* A4 PAGE */
 #template {
-  width: 700px;
-  margin: 30px auto;
-  padding: 25px;
+  width: 794px;
+  min-height: 1123px;
+  margin: 20px auto;
+  padding: 30px;
   background: white;
-  border: 2px solid #ddd;
-  text-align: left;
   position: relative;
+  text-align: left;
 }
 
+/* WATERMARK BACKGROUND */
+#template::before {
+  content: "";
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: url('background.jpg') no-repeat center;
+  background-size: contain;
+  opacity: 0.06;
+}
+
+/* HEADER */
 .logo {
-  width: 120px;
+  width: 100px;
   display: block;
   margin: auto;
 }
@@ -64,23 +80,36 @@ h3 {
 
 h2 {
   text-align: center;
-  margin: 15px 0;
-}
-
-p {
-  margin: 6px 0;
-}
-
-.watermark {
-  position: absolute;
-  opacity: 0.08;
-  width: 500px;
-  top: 150px;
-  left: 100px;
-}
-
-hr {
   margin: 10px 0;
+}
+
+/* TEXT */
+p {
+  margin: 5px 0;
+}
+
+.section {
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.line {
+  border-bottom: 1px solid black;
+  display: inline-block;
+  min-width: 180px;
+}
+
+ul {
+  margin: 5px 0 10px 20px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
+  text-align: center;
+  border-top: 2px solid #2b5d9b;
+  padding-top: 8px;
 }
 </style>
 
@@ -88,76 +117,127 @@ hr {
 <body>
 
 <div class="form-box">
-  <h2>Fill Patient Form</h2>
+<h2>Fill Agreement Form</h2>
 
-  <input type="text" id="name" placeholder="Patient Name">
-  <input type="number" id="age" placeholder="Age">
-  <input type="text" id="gender" placeholder="Gender">
-  <input type="text" id="address" placeholder="Address">
-  <input type="text" id="condition" placeholder="Medical Condition">
-  <input type="text" id="guardian" placeholder="Guardian Name">
-  <input type="text" id="relation" placeholder="Relation">
-  <input type="text" id="contact" placeholder="Contact Number">
+<input id="name" placeholder="Patient Name">
+<input id="age" placeholder="Age">
+<input id="gender" placeholder="Gender">
+<input id="cnic" placeholder="Patient CNIC">
+<input id="address" placeholder="Address">
+<input id="condition" placeholder="Medical Condition">
 
-  <button onclick="generate()">Preview JPG</button>
-  <button onclick="download()">Download JPG</button>
+<input id="guardian" placeholder="Guardian Name">
+<input id="relation" placeholder="Relation">
+<input id="contact" placeholder="Contact Number">
+<input id="gcnic" placeholder="Guardian CNIC">
+
+<!-- SERVICES -->
+<label><b>Select Services:</b></label>
+<label><input type="checkbox" value="Home Nursing Care" class="service"> Home Nursing Care</label>
+<label><input type="checkbox" value="Patient Attendant" class="service"> Patient Attendant</label>
+<label><input type="checkbox" value="Physiotherapy" class="service"> Physiotherapy</label>
+<label><input type="checkbox" value="IV Drip / Injection" class="service"> IV Drip / Injection</label>
+<label><input type="checkbox" value="Elderly Care" class="service"> Elderly Care</label>
+<label><input type="checkbox" value="Medical Equipment" class="service"> Medical Equipment</label>
+
+<input id="start" placeholder="Start Date">
+<input id="end" placeholder="End Date">
+<input id="timing" placeholder="Timing">
+
+<input id="total" placeholder="Total Charges">
+<input id="remaining" placeholder="Remaining Payment">
+<input id="method" placeholder="Payment Method">
+
+<button onclick="generate()">Preview</button>
+<button onclick="download()">Download JPG</button>
 </div>
 
-<!-- OUTPUT DESIGN -->
+<!-- TEMPLATE -->
 <div id="template">
 
-  <!-- LOGO -->
-  <img src="logo.png" class="logo">
+<img src="logo.png" class="logo">
 
-  <!-- WATERMARK -->
-  <img src="logo.png" class="watermark">
+<h1>AREEBA MEDICS</h1>
+<h3>HOME PATIENT CARE</h3>
+<h2>SERVICE AGREEMENT</h2>
 
-  <h1>AREEBA MEDICS</h1>
-  <h3>HOME PATIENT CARE</h3>
+<p class="section">1. Patient Information</p>
+<p>Name: <span class="line" id="outName"></span> Age: <span class="line" id="outAge"></span> Gender: <span class="line" id="outGender"></span></p>
+<p>CNIC: <span class="line" id="outCnic"></span></p>
+<p>Address: <span class="line" id="outAddress"></span></p>
+<p>Medical Condition: <span class="line" id="outCondition"></span></p>
 
-  <h2>SERVICE AGREEMENT</h2>
+<p class="section">2. Guardian Information</p>
+<p>Name: <span class="line" id="outGuardian"></span></p>
+<p>Relation: <span class="line" id="outRelation"></span></p>
+<p>Contact: <span class="line" id="outContact"></span></p>
+<p>CNIC: <span class="line" id="outGCnic"></span></p>
 
-  <p><b>Patient Name:</b> <span id="outName"></span></p>
-  <p><b>Age:</b> <span id="outAge"></span> &nbsp;&nbsp;
-     <b>Gender:</b> <span id="outGender"></span></p>
-  <p><b>Address:</b> <span id="outAddress"></span></p>
-  <p><b>Medical Condition:</b> <span id="outCondition"></span></p>
+<p class="section">3. Services Required</p>
+<p id="outServices"></p>
 
-  <hr>
+<p class="section">4. Service Duration</p>
+<p>Start: <span class="line" id="outStart"></span> End: <span class="line" id="outEnd"></span> Timing: <span class="line" id="outTiming"></span></p>
 
-  <p><b>Guardian Name:</b> <span id="outGuardian"></span></p>
-  <p><b>Relation:</b> <span id="outRelation"></span></p>
-  <p><b>Contact:</b> <span id="outContact"></span></p>
+<p class="section">5. Payment Details</p>
+<p>Total: Rs. <span class="line" id="outTotal"></span> Remaining: Rs. <span class="line" id="outRemaining"></span></p>
+<p>Method: <span class="line" id="outMethod"></span></p>
 
-  <hr>
+<p class="section">6. Terms & Conditions</p>
+<ul>
+<li>Areeba Medics will provide trained and verified staff.</li>
+<li>The client must ensure a safe working environment.</li>
+<li>Payment must be made on time as agreed.</li>
+<li>In case of emergency, company is not responsible for hospital arrangements.</li>
+<li>Any misconduct must be reported immediately.</li>
+<li>Service can be terminated by either party with prior notice.</li>
+<li>Areeba Medics is not liable for unforeseen medical complications.</li>
+</ul>
 
-  <p><b>Declaration:</b> I agree to all terms and conditions.</p>
+<p class="section">7. Declaration</p>
+<p>I/We agree to all terms and conditions mentioned above.</p>
 
-  <br><br>
+<br><br>
+<p>Patient Signature: ______________________</p>
+<p>Representative: ______________________</p>
+<p>Date: ____ / ____ / ______</p>
 
-  <p>Patient Signature: ________________________</p>
-  <p>Representative: ________________________</p>
+<div class="footer">
+📞 0325 9965766 | 🌐 areebamedics.com
+</div>
 
 </div>
 
 <script>
 function generate() {
-  document.getElementById("outName").innerText = document.getElementById("name").value;
-  document.getElementById("outAge").innerText = document.getElementById("age").value;
-  document.getElementById("outGender").innerText = document.getElementById("gender").value;
-  document.getElementById("outAddress").innerText = document.getElementById("address").value;
-  document.getElementById("outCondition").innerText = document.getElementById("condition").value;
-  document.getElementById("outGuardian").innerText = document.getElementById("guardian").value;
-  document.getElementById("outRelation").innerText = document.getElementById("relation").value;
-  document.getElementById("outContact").innerText = document.getElementById("contact").value;
+  outName.innerText = name.value;
+  outAge.innerText = age.value;
+  outGender.innerText = gender.value;
+  outCnic.innerText = cnic.value;
+  outAddress.innerText = address.value;
+  outCondition.innerText = condition.value;
+  outGuardian.innerText = guardian.value;
+  outRelation.innerText = relation.value;
+  outContact.innerText = contact.value;
+  outGCnic.innerText = gcnic.value;
+  outStart.innerText = start.value;
+  outEnd.innerText = end.value;
+  outTiming.innerText = timing.value;
+  outTotal.innerText = total.value;
+  outRemaining.innerText = remaining.value;
+  outMethod.innerText = method.value;
+
+  let services = [];
+  document.querySelectorAll(".service:checked").forEach(el => {
+    services.push("✔ " + el.value);
+  });
+  outServices.innerText = services.join(", ");
 }
 
 function download() {
-  const template = document.getElementById("template");
-
-  html2canvas(template).then(canvas => {
+  html2canvas(document.getElementById("template")).then(canvas => {
     let link = document.createElement("a");
-    link.download = "areeba-medics.jpg";
+    link.download = "Areeba_Medics_Agreement.jpg";
     link.href = canvas.toDataURL("image/jpeg", 1.0);
     link.click();
   });
