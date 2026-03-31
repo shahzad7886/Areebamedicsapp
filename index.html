@@ -1,248 +1,1154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Areeba Medics Agreement</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Areeba Medics Agreement</title>
 
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-<style>
-body {
-  font-family: Arial;
-  background: #eef2f7;
-  text-align: center;
-}
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-.form-box input {
-  display: block;
-  margin: 5px auto;
-  padding: 8px;
-  width: 260px;
-}
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #e6ecf5, #f7f9fc);
+        margin: 0;
+        padding: 16px;
+        color: #222;
+      }
 
-.form-box label {
-  display: block;
-  margin-top: 10px;
-}
+      /* =========================
+         MAIN LAYOUT
+      ========================== */
+      .main-wrapper {
+        max-width: 1500px;
+        margin: auto;
+      }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  background: #2b5d9b;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
+      .top-row {
+        display: grid;
+        grid-template-columns: 480px 1fr;
+        gap: 20px;
+        align-items: start;
+      }
 
-/* A4 PAGE */
-#template {
-  width: 794px;
-  background: url('background.jpeg') no-repeat center;
-  min-height: 1123px;
-  margin: 20px auto;
-  padding: 30px;
-  background: white;
-  position: relative;
-  text-align: left;
-}
+      /* =========================
+         FORM CARD
+      ========================== */
+      .form-box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        position: sticky;
+        top: 10px;
+      }
 
-/* WATERMARK BACKGROUND */
-#template::before {
-  content: "";
-  position: absolute;
-  top: 200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 500px;
-  
-  background-size: contain;
-  opacity: 0.06;
-}
+      .form-box h2 {
+        text-align: center;
+        color: #2b5d9b;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
 
-/* HEADER */
-.logo {
-  width: 100px;
-  display: block;
-  margin: auto;
-}
+      .form-box h3 {
+        margin-top: 18px;
+        margin-bottom: 8px;
+        color: #2b5d9b;
+        font-size: 16px;
+        border-bottom: 1px solid #dbe4f0;
+        padding-bottom: 4px;
+      }
 
-h1 {
-  text-align: center;
-  color: #2b5d9b;
-  margin: 5px;
-}
+      .form-box input,
+      .form-box textarea,
+      .form-box select {
+        width: 100%;
+        padding: 10px 12px;
+        margin-top: 8px;
+        border-radius: 8px;
+        border: 1px solid #cfd7e3;
+        font-size: 14px;
+        outline: none;
+        transition: 0.2s ease;
+      }
 
-h3 {
-  text-align: center;
-  color: green;
-  margin: 5px;
-}
+      .form-box input:focus,
+      .form-box textarea:focus,
+      .form-box select:focus {
+        border-color: #2b5d9b;
+        box-shadow: 0 0 0 3px rgba(43, 93, 155, 0.12);
+      }
 
-h2 {
-  text-align: center;
-  margin: 10px 0;
-}
+      .form-box textarea {
+        resize: vertical;
+        min-height: 70px;
+      }
 
-/* TEXT */
-p {
-  margin: 5px 0;
-}
+      .form-box label {
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+      }
 
-.section {
-  margin-top: 12px;
-  font-weight: bold;
-}
+      .services-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        margin-top: 8px;
+      }
 
-.line {
-  border-bottom: 1px solid black;
-  display: inline-block;
-  min-width: 180px;
-}
+      .services-grid label {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        background: #f8fbff;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid #e0e9f3;
+      }
 
-ul {
-  margin: 5px 0 10px 20px;
-}
+      .services-grid input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+      }
 
-.footer {
-  position: absolute;
-  bottom: 20px;
-  width: 90%;
-  text-align: center;
-  border-top: 2px solid #2b5d9b;
-  padding-top: 8px;
-}
-</style>
+      .btn-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 15px;
+      }
 
-</head>
-<body>
+      .btn-row-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
 
-<div class="form-box">
-<h2>Fill Agreement Form</h2>
+      button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background: #2b5d9b;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.2s ease;
+      }
 
-<input id="name" placeholder="Patient Name">
-<input id="age" placeholder="Age">
-<input id="gender" placeholder="Gender">
-<input id="cnic" placeholder="Patient CNIC">
-<input id="address" placeholder="Address">
-<input id="condition" placeholder="Medical Condition">
+      button:hover {
+        transform: translateY(-1px);
+        opacity: 0.96;
+      }
 
-<input id="guardian" placeholder="Guardian Name">
-<input id="relation" placeholder="Relation">
-<input id="contact" placeholder="Contact Number">
-<input id="gcnic" placeholder="Guardian CNIC">
+      .secondary-btn {
+        background: #0f8b5f;
+      }
 
-<!-- SERVICES -->
-<label><b>Select Services:</b></label>
-<label><input type="checkbox" value="Home Nursing Care" class="service"> Home Nursing Care</label>
-<label><input type="checkbox" value="Patient Attendant" class="service"> Patient Attendant</label>
-<label><input type="checkbox" value="Physiotherapy" class="service"> Physiotherapy</label>
-<label><input type="checkbox" value="IV Drip / Injection" class="service"> IV Drip / Injection</label>
-<label><input type="checkbox" value="Elderly Care" class="service"> Elderly Care</label>
-<label><input type="checkbox" value="Medical Equipment" class="service"> Medical Equipment</label>
+      .orange-btn {
+        background: #c97b00;
+      }
 
-<input id="start" placeholder="Start Date">
-<input id="end" placeholder="End Date">
-<input id="timing" placeholder="Timing">
+      .red-btn {
+        background: #b02a2a;
+      }
 
-<input id="total" placeholder="Total Charges">
-<input id="remaining" placeholder="Remaining Payment">
-<input id="method" placeholder="Payment Method">
+      .gray-btn {
+        background: #555;
+      }
 
-<button onclick="generate()">Preview</button>
-<button onclick="download()">Download JPG</button>
-</div>
+      /* =========================
+         PREVIEW AREA
+      ========================== */
+      .preview-panel {
+        background: #ffffff80;
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        overflow: auto;
+      }
 
-<!-- TEMPLATE -->
-<div id="template">
+      .template-wrap {
+        overflow-x: auto;
+      }
 
+      #template {
+        width: 794px;
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 45px 55px 95px;
+        position: relative;
+        background: white;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+        border-radius: 8px;
+      }
 
-<h1>AREEBA MEDICS</h1>
-<h3>HOME PATIENT CARE</h3>
-<h2>SERVICE AGREEMENT</h2>
+      #template::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("background.jpeg") no-repeat center center;
+        background-size: 100% 100%;
+        opacity: 0.14;
+        z-index: 0;
+      }
 
-<p class="section">1. Patient Information</p>
-<p>Name: <span class="line" id="outName"></span> Age: <span class="line" id="outAge"></span> Gender: <span class="line" id="outGender"></span></p>
-<p>CNIC: <span class="line" id="outCnic"></span></p>
-<p>Address: <span class="line" id="outAddress"></span></p>
-<p>Medical Condition: <span class="line" id="outCondition"></span></p>
+      #template * {
+        position: relative;
+        z-index: 1;
+      }
 
-<p class="section">2. Guardian Information</p>
-<p>Name: <span class="line" id="outGuardian"></span></p>
-<p>Relation: <span class="line" id="outRelation"></span></p>
-<p>Contact: <span class="line" id="outContact"></span></p>
-<p>CNIC: <span class="line" id="outGCnic"></span></p>
+      /* =========================
+         DOC HEADER
+      ========================== */
+      .doc-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 3px solid #2b5d9b;
+        padding-bottom: 10px;
+        margin-bottom: 18px;
+      }
 
-<p class="section">3. Services Required</p>
-<p id="outServices"></p>
+      .logo-box {
+        width: 85px;
+        height: 85px;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-<p class="section">4. Service Duration</p>
-<p>Start: <span class="line" id="outStart"></span> End: <span class="line" id="outEnd"></span> Timing: <span class="line" id="outTiming"></span></p>
+      .logo-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
 
-<p class="section">5. Payment Details</p>
-<p>Total: Rs. <span class="line" id="outTotal"></span> Remaining: Rs. <span class="line" id="outRemaining"></span></p>
-<p>Method: <span class="line" id="outMethod"></span></p>
+      .title-box {
+        flex: 1;
+        text-align: center;
+        padding: 0 10px;
+      }
 
-<p class="section">6. Terms & Conditions</p>
-<ul>
-<li>Areeba Medics will provide trained and verified staff.</li>
-<li>The client must ensure a safe working environment.</li>
-<li>Payment must be made on time as agreed.</li>
-<li>In case of emergency, company is not responsible for hospital arrangements.</li>
-<li>Any misconduct must be reported immediately.</li>
-<li>Service can be terminated by either party with prior notice.</li>
-<li>Areeba Medics is not liable for unforeseen medical complications.</li>
-</ul>
+      .title-box h1 {
+        margin: 0;
+        color: #2b5d9b;
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
 
-<p class="section">7. Declaration</p>
-<p>I/We agree to all terms and conditions mentioned above.</p>
+      .title-box h3 {
+        margin: 4px 0;
+        color: #1f7f4f;
+        font-size: 16px;
+      }
 
-<br><br>
-<p>Patient Signature: ______________________</p>
-<p>Representative: ______________________</p>
-<p>Date: ____ / ____ / ______</p>
+      .title-box h2 {
+        margin: 8px 0 0;
+        font-size: 20px;
+        color: #111;
+      }
 
-<div class="footer">
-📞 0325 9965766 | 🌐 areebamedics.com
-</div>
+      .doc-id-box {
+        text-align: right;
+        font-size: 13px;
+        min-width: 130px;
+      }
 
-</div>
+      .doc-id-box p {
+        margin: 3px 0;
+      }
 
-<script>
-function generate() {
-  outName.innerText = name.value;
-  outAge.innerText = age.value;
-  outGender.innerText = gender.value;
-  outCnic.innerText = cnic.value;
-  outAddress.innerText = address.value;
-  outCondition.innerText = condition.value;
-  outGuardian.innerText = guardian.value;
-  outRelation.innerText = relation.value;
-  outContact.innerText = contact.value;
-  outGCnic.innerText = gcnic.value;
-  outStart.innerText = start.value;
-  outEnd.innerText = end.value;
-  outTiming.innerText = timing.value;
-  outTotal.innerText = total.value;
-  outRemaining.innerText = remaining.value;
-  outMethod.innerText = method.value;
+      /* =========================
+         CONTENT
+      ========================== */
+      p {
+        margin: 7px 0;
+        font-size: 14px;
+        line-height: 1.55;
+      }
 
-  let services = [];
-  document.querySelectorAll(".service:checked").forEach(el => {
-    services.push("✔ " + el.value);
-  });
-  outServices.innerText = services.join(", ");
-}
+      .section {
+        margin-top: 16px;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #2b5d9b;
+        font-size: 15px;
+        border-bottom: 1px solid #b8c8de;
+        padding-bottom: 4px;
+      }
 
-function download() {
-  html2canvas(document.getElementById("template")).then(canvas => {
-    let link = document.createElement("a");
-    link.download = "Areeba_Medics_Agreement.jpg";
-    link.href = canvas.toDataURL("image/jpeg", 1.0);
-    link.click();
-  });
-}
-</script>
+      .line {
+        border-bottom: 1px solid #000;
+        display: inline-block;
+        min-width: 160px;
+        padding: 2px 4px;
+        font-weight: 500;
+      }
 
-</body>
+      .line.long {
+        min-width: 300px;
+      }
+
+      .line.full {
+        min-width: 500px;
+      }
+
+      ul {
+        margin: 8px 0 0 18px;
+        padding: 0;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .service-output {
+        min-height: 28px;
+        padding: 8px 10px;
+        border: 1px dashed #666;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+      }
+
+      /* =========================
+         SIGNATURE
+      ========================== */
+      .sign-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 40px;
+      }
+
+      .sign-box {
+        width: 31%;
+        text-align: center;
+      }
+
+      .sign-line {
+        border-top: 1px solid #000;
+        margin-top: 45px;
+        padding-top: 6px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .stamp-box {
+        width: 110px;
+        height: 110px;
+        border: 2px dashed #2b5d9b;
+        border-radius: 50%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2b5d9b;
+        font-size: 12px;
+        text-align: center;
+        padding: 8px;
+        font-weight: bold;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 80px);
+        text-align: center;
+        border-top: 2px solid #2b5d9b;
+        padding-top: 8px;
+        font-size: 13px;
+        color: #123d6f;
+        font-weight: 600;
+      }
+
+      /* =========================
+         SAVED RECORDS (BLOG CARDS)
+      ========================== */
+      .saved-box {
+        max-width: 1500px;
+        margin: 25px auto 0;
+        background: white;
+        padding: 22px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .saved-box h3 {
+        margin-top: 0;
+        color: #2b5d9b;
+        font-size: 22px;
+      }
+
+      .record-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 18px;
+      }
+
+      .record-card {
+        border: 1px solid #dbe4f0;
+        border-radius: 14px;
+        padding: 14px;
+        background: linear-gradient(180deg, #f8fbff, #ffffff);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      }
+
+      .record-card h4 {
+        margin: 0 0 8px;
+        color: #2b5d9b;
+        font-size: 18px;
+      }
+
+      .record-card p {
+        margin: 5px 0;
+        font-size: 14px;
+      }
+
+      .record-card .badge {
+        display: inline-block;
+        background: #e8f2ff;
+        color: #2b5d9b;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        margin: 3px 4px 0 0;
+        border: 1px solid #cfe1f8;
+      }
+
+      .record-card img {
+        width: 100%;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        margin-top: 12px;
+      }
+
+      .card-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .small-btn {
+        padding: 10px;
+        font-size: 13px;
+        border-radius: 8px;
+      }
+
+      /* =========================
+         RESPONSIVE
+      ========================== */
+      @media (max-width: 1200px) {
+        .top-row {
+          grid-template-columns: 1fr;
+        }
+
+        .form-box {
+          position: static;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .services-grid,
+        .btn-row,
+        .btn-row-3 {
+          grid-template-columns: 1fr;
+        }
+
+        #template {
+          width: 100%;
+          min-width: 794px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main-wrapper">
+      <!-- =========================
+           TOP ROW
+      ========================== -->
+      <div class="top-row">
+        <!-- FORM -->
+        <div class="form-box">
+          <h2>Areeba Medics Agreement Form</h2>
+
+          <h3>Patient Information</h3>
+          <input id="name" placeholder="Patient Name" />
+          <input id="age" placeholder="Age" />
+          <input id="gender" placeholder="Gender" />
+          <input id="cnic" placeholder="Patient CNIC" />
+          <textarea id="address" placeholder="Address"></textarea>
+          <input id="condition" placeholder="Medical Condition" />
+
+          <h3>Guardian Information</h3>
+          <input id="guardian" placeholder="Guardian Name" />
+          <input id="relation" placeholder="Relation" />
+          <input id="contact" placeholder="Contact Number" />
+          <input id="gcnic" placeholder="Guardian CNIC" />
+
+          <h3>Service Selection</h3>
+          <div class="services-grid">
+            <label
+              ><input
+                type="checkbox"
+                value="Home Nursing Care"
+                class="service"
+              />
+              Home Nursing Care</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Patient Attendant"
+                class="service"
+              />
+              Patient Attendant</label
+            >
+            <label
+              ><input type="checkbox" value="Physiotherapy" class="service" />
+              Physiotherapy</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="IV Drip / Injection"
+                class="service"
+              />
+              IV Drip / Injection</label
+            >
+            <label
+              ><input type="checkbox" value="Elderly Care" class="service" />
+              Elderly Care</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                value="Medical Equipment"
+                class="service"
+              />
+              Medical Equipment</label
+            >
+          </div>
+
+          <h3>Service Duration</h3>
+          <input id="start" placeholder="Start Date" />
+          <input id="end" placeholder="End Date" />
+          <input id="timing" placeholder="Timing / Shift" />
+
+          <h3>Payment Details</h3>
+          <input id="total" placeholder="Total Charges" />
+          <input id="advance" placeholder="Advance Paid" />
+          <input id="remaining" placeholder="Remaining Payment" />
+          <input id="method" placeholder="Payment Method" />
+
+          <h3>Document Details</h3>
+          <input
+            id="agreementNo"
+            placeholder="Agreement No (e.g. AM-2026-001)"
+          />
+          <input
+            id="todayDate"
+            placeholder="Agreement Date (e.g. 31-03-2026)"
+          />
+          <input id="representative" placeholder="Representative Name" />
+
+          <div class="btn-row">
+            <button class="secondary-btn" onclick="saveRecord()">
+              Save Data
+            </button>
+            <button class="secondary-btn" onclick="download()">
+              Download JPG
+            </button>
+            <button class="orange-btn" onclick="fillRandomData()">
+              Random Data
+            </button>
+          </div>
+
+          <!-- <div class="btn-row-3">
+            
+            <button class="gray-btn" onclick="logFormData()">
+              Console Data
+            </button>
+            <button class="secondary-btn">Save Data</button>
+          </div> -->
+
+          <!-- <div class="btn-row-3">
+            <button class="gray-btn" onclick="showSavedRecords()">
+              Show Saved
+            </button>
+            <button class="red-btn" onclick="clearSavedRecords()">
+              Clear All
+            </button>
+            <button onclick="downloadAndSave()">Save JPG + Data</button>
+          </div> -->
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="preview-panel">
+          <div class="template-wrap">
+            <div id="template">
+              <div class="doc-header">
+                <div class="logo-box">
+                  <img src="logo.jpeg" alt="Areeba Medics Logo" />
+                </div>
+
+                <div class="title-box">
+                  <h1>AREEBA MEDICS</h1>
+                  <h3>HOME PATIENT CARE SERVICES</h3>
+                  <h2>SERVICE AGREEMENT</h2>
+                </div>
+
+                <div class="doc-id-box">
+                  <p><b>No:</b> <span id="outAgreementNo">AM-2026-001</span></p>
+                  <p><b>Date:</b> <span id="outTodayDate">31-03-2026</span></p>
+                </div>
+              </div>
+
+              <p class="section">1. Patient Information</p>
+              <p>
+                Name: <span class="line" id="outName"></span> Age:
+                <span class="line" id="outAge"></span> Gender:
+                <span class="line" id="outGender"></span>
+              </p>
+              <p>CNIC: <span class="line long" id="outCnic"></span></p>
+              <p>Address: <span class="line full" id="outAddress"></span></p>
+              <p>
+                Medical Condition:
+                <span class="line full" id="outCondition"></span>
+              </p>
+
+              <p class="section">2. Guardian / Attendant Information</p>
+              <p>Name: <span class="line long" id="outGuardian"></span></p>
+              <p>
+                Relation: <span class="line" id="outRelation"></span> Contact:
+                <span class="line" id="outContact"></span>
+              </p>
+              <p>
+                Guardian CNIC: <span class="line long" id="outGCnic"></span>
+              </p>
+
+              <p class="section">3. Services Required</p>
+              <div class="service-output" id="outServices">
+                Selected services will appear here
+              </div>
+
+              <p class="section">4. Service Duration</p>
+              <p>
+                Start Date: <span class="line" id="outStart"></span> End Date:
+                <span class="line" id="outEnd"></span>
+              </p>
+              <p>
+                Timing / Shift: <span class="line long" id="outTiming"></span>
+              </p>
+
+              <p class="section">5. Payment Details</p>
+              <p>
+                Total Charges: Rs.
+                <span class="line" id="outTotal"></span> Advance Paid: Rs.
+                <span class="line" id="outAdvance"></span>
+              </p>
+              <p>
+                Remaining Payment: Rs.
+                <span class="line" id="outRemaining"></span> Method:
+                <span class="line" id="outMethod"></span>
+              </p>
+
+              <p class="section">6. Terms & Conditions</p>
+              <ul>
+                <li>
+                  Areeba Medics will provide trained and professional staff as
+                  per required service.
+                </li>
+                <li>
+                  The client/guardian will ensure a safe and respectful
+                  environment for assigned staff.
+                </li>
+                <li>
+                  All payments must be made on time according to the agreed
+                  plan.
+                </li>
+                <li>
+                  Emergency medical treatment or hospital management is not
+                  included unless specifically agreed.
+                </li>
+                <li>
+                  Any complaint, issue, or dissatisfaction must be reported
+                  immediately to management.
+                </li>
+                <li>
+                  Service may be suspended or terminated in case of misconduct,
+                  non-payment, or unsafe conditions.
+                </li>
+                <li>
+                  Areeba Medics will not be held liable for pre-existing or
+                  sudden medical complications beyond service scope.
+                </li>
+                <li>
+                  Medical equipment, medicines, and hospital expenses are the
+                  responsibility of the client unless separately included.
+                </li>
+              </ul>
+
+              <p class="section">7. Declaration</p>
+              <p>
+                I/We confirm that all information provided is correct and I/We
+                agree to the above-mentioned terms and conditions of Areeba
+                Medics.
+              </p>
+
+              <div class="sign-row">
+                <div class="sign-box">
+                  <div class="sign-line">Patient / Guardian Signature</div>
+                </div>
+
+                <div class="sign-box">
+                  <div class="stamp-box">OFFICIAL STAMP</div>
+                </div>
+
+                <div class="sign-box">
+                  <div class="sign-line">
+                    Representative:
+                    <span id="outRepresentative">Areeba Medics</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="footer">
+                📞 0325 9965766 &nbsp; | &nbsp; 🌐 areebamedics.com &nbsp; |
+                &nbsp; Expert Healthcare at Your Doorstep
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================
+           SECOND ROW: SAVED BLOG CARDS
+      ========================== -->
+      <div class="saved-box">
+        <h3>Saved Records</h3>
+        <div id="savedRecords" class="record-grid"></div>
+      </div>
+    </div>
+
+    <script>
+      /* =========================
+         HELPERS
+      ========================== */
+      function safeValue(id, fallback = "________________") {
+        const el = document.getElementById(id);
+        return el && el.value.trim() !== "" ? el.value.trim() : fallback;
+      }
+
+      function getSelectedServices() {
+        let services = [];
+        document.querySelectorAll(".service:checked").forEach((el) => {
+          services.push(el.value);
+        });
+        return services;
+      }
+
+      function getFormData() {
+        return {
+          patientName: document.getElementById("name").value.trim(),
+          age: document.getElementById("age").value.trim(),
+          gender: document.getElementById("gender").value.trim(),
+          cnic: document.getElementById("cnic").value.trim(),
+          address: document.getElementById("address").value.trim(),
+          condition: document.getElementById("condition").value.trim(),
+
+          guardian: document.getElementById("guardian").value.trim(),
+          relation: document.getElementById("relation").value.trim(),
+          contact: document.getElementById("contact").value.trim(),
+          guardianCnic: document.getElementById("gcnic").value.trim(),
+
+          services: getSelectedServices(),
+
+          start: document.getElementById("start").value.trim(),
+          end: document.getElementById("end").value.trim(),
+          timing: document.getElementById("timing").value.trim(),
+
+          total: document.getElementById("total").value.trim(),
+          advance: document.getElementById("advance").value.trim(),
+          remaining: document.getElementById("remaining").value.trim(),
+          method: document.getElementById("method").value.trim(),
+
+          agreementNo: document.getElementById("agreementNo").value.trim(),
+          todayDate: document.getElementById("todayDate").value.trim(),
+          representative: document
+            .getElementById("representative")
+            .value.trim(),
+        };
+      }
+
+      function logFormData() {
+        const data = getFormData();
+        console.clear();
+        console.log("===== AREEBA MEDICS FORM DATA =====");
+        console.table(data);
+        console.log("Full Object:", data);
+        alert("Data console me show ho gaya. Browser console open karo (F12).");
+      }
+
+      /* =========================
+         LIVE PREVIEW
+      ========================== */
+      function generate() {
+        document.getElementById("outName").innerText = safeValue("name");
+        document.getElementById("outAge").innerText = safeValue("age");
+        document.getElementById("outGender").innerText = safeValue("gender");
+        document.getElementById("outCnic").innerText = safeValue("cnic");
+        document.getElementById("outAddress").innerText = safeValue("address");
+        document.getElementById("outCondition").innerText =
+          safeValue("condition");
+
+        document.getElementById("outGuardian").innerText =
+          safeValue("guardian");
+        document.getElementById("outRelation").innerText =
+          safeValue("relation");
+        document.getElementById("outContact").innerText = safeValue("contact");
+        document.getElementById("outGCnic").innerText = safeValue("gcnic");
+
+        document.getElementById("outStart").innerText = safeValue("start");
+        document.getElementById("outEnd").innerText = safeValue("end");
+        document.getElementById("outTiming").innerText = safeValue("timing");
+
+        document.getElementById("outTotal").innerText = safeValue("total");
+        document.getElementById("outAdvance").innerText = safeValue("advance");
+        document.getElementById("outRemaining").innerText =
+          safeValue("remaining");
+        document.getElementById("outMethod").innerText = safeValue("method");
+
+        document.getElementById("outAgreementNo").innerText = safeValue(
+          "agreementNo",
+          "AM-2026-001",
+        );
+        document.getElementById("outTodayDate").innerText = safeValue(
+          "todayDate",
+          "31-03-2026",
+        );
+        document.getElementById("outRepresentative").innerText = safeValue(
+          "representative",
+          "Areeba Medics",
+        );
+
+        let services = getSelectedServices();
+        document.getElementById("outServices").innerText =
+          services.length > 0
+            ? services.map((s) => "✔ " + s).join("   |   ")
+            : "No service selected";
+      }
+
+      /* =========================
+         AUTO UPDATE ON TYPING
+      ========================== */
+      function enableLivePreview() {
+        const fields = document.querySelectorAll("input, textarea, select");
+        fields.forEach((field) => {
+          field.addEventListener("input", generate);
+          field.addEventListener("change", generate);
+        });
+
+        document.querySelectorAll(".service").forEach((checkbox) => {
+          checkbox.addEventListener("change", generate);
+        });
+      }
+
+      /* =========================
+         RANDOM TEST DATA
+      ========================== */
+      function fillRandomData() {
+        document.getElementById("name").value = "Naseem Ijaz";
+        document.getElementById("age").value = "68";
+        document.getElementById("gender").value = "Female";
+        document.getElementById("cnic").value = "37405-1234567-8";
+        document.getElementById("address").value =
+          "G-13/3, Street 9, House 37, Islamabad";
+        document.getElementById("condition").value =
+          "Post Stroke Patient / Bed Care";
+
+        document.getElementById("guardian").value = "Ali Rizwan";
+        document.getElementById("relation").value = "Son";
+        document.getElementById("contact").value = "03251258984";
+        document.getElementById("gcnic").value = "37405-7654321-0";
+
+        document
+          .querySelectorAll(".service")
+          .forEach((el) => (el.checked = false));
+        const randomServices = [
+          "Home Nursing Care",
+          "Patient Attendant",
+          "IV Drip / Injection",
+        ];
+        document.querySelectorAll(".service").forEach((el) => {
+          if (randomServices.includes(el.value)) el.checked = true;
+        });
+
+        document.getElementById("start").value = "01-04-2026";
+        document.getElementById("end").value = "08-04-2026";
+        document.getElementById("timing").value = "12 Hours Day Shift";
+
+        document.getElementById("total").value = "12000";
+        document.getElementById("advance").value = "5500";
+        document.getElementById("remaining").value = "6500";
+        document.getElementById("method").value = "Cash";
+
+        document.getElementById("agreementNo").value = "AM-2026-001";
+        document.getElementById("todayDate").value = "31-03-2026";
+        document.getElementById("representative").value = "Areeba Medics Team";
+
+        generate();
+        console.log("Random test data filled successfully");
+        alert("Random test data fill ho gaya.");
+      }
+
+      /* =========================
+         SAVE RECORD
+      ========================== */
+      function saveRecord(imageData = "") {
+        generate();
+
+        const formData = getFormData();
+        const saved = JSON.parse(
+          localStorage.getItem("areeba_records") || "[]",
+        );
+
+        const record = {
+          id: Date.now(),
+          savedAt: new Date().toLocaleString(),
+          ...formData,
+          image: imageData,
+        };
+
+        saved.unshift(record);
+        localStorage.setItem("areeba_records", JSON.stringify(saved));
+
+        console.log("Saved Record:", record);
+        showSavedRecords();
+        alert("Record save ho gaya.");
+      }
+
+      /* =========================
+         LOAD RECORD INTO FORM
+      ========================== */
+      function loadRecord(id) {
+        const records = JSON.parse(
+          localStorage.getItem("areeba_records") || "[]",
+        );
+        const record = records.find((r) => r.id === id);
+        if (!record) return;
+
+        document.getElementById("name").value = record.patientName || "";
+        document.getElementById("age").value = record.age || "";
+        document.getElementById("gender").value = record.gender || "";
+        document.getElementById("cnic").value = record.cnic || "";
+        document.getElementById("address").value = record.address || "";
+        document.getElementById("condition").value = record.condition || "";
+
+        document.getElementById("guardian").value = record.guardian || "";
+        document.getElementById("relation").value = record.relation || "";
+        document.getElementById("contact").value = record.contact || "";
+        document.getElementById("gcnic").value = record.guardianCnic || "";
+
+        document.querySelectorAll(".service").forEach((el) => {
+          el.checked = (record.services || []).includes(el.value);
+        });
+
+        document.getElementById("start").value = record.start || "";
+        document.getElementById("end").value = record.end || "";
+        document.getElementById("timing").value = record.timing || "";
+
+        document.getElementById("total").value = record.total || "";
+        document.getElementById("advance").value = record.advance || "";
+        document.getElementById("remaining").value = record.remaining || "";
+        document.getElementById("method").value = record.method || "";
+
+        document.getElementById("agreementNo").value = record.agreementNo || "";
+        document.getElementById("todayDate").value = record.todayDate || "";
+        document.getElementById("representative").value =
+          record.representative || "";
+
+        generate();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        alert("Record form me load ho gaya.");
+      }
+
+      /* =========================
+         DELETE ONE RECORD
+      ========================== */
+      function deleteRecord(id) {
+        if (!confirm("Kya aap is record ko delete karna chahte hain?")) return;
+
+        let records = JSON.parse(
+          localStorage.getItem("areeba_records") || "[]",
+        );
+        records = records.filter((r) => r.id !== id);
+        localStorage.setItem("areeba_records", JSON.stringify(records));
+        showSavedRecords();
+      }
+
+      /* =========================
+         SHOW SAVED RECORDS AS BLOG CARDS
+      ========================== */
+      function showSavedRecords() {
+        const records = JSON.parse(
+          localStorage.getItem("areeba_records") || "[]",
+        );
+        const box = document.getElementById("savedRecords");
+
+        if (records.length === 0) {
+          box.innerHTML = `
+            <div class="record-card">
+              <h4>No saved records yet</h4>
+              <p>Aapka saved agreement data yahan blog cards ki form me show hoga.</p>
+            </div>
+          `;
+          return;
+        }
+
+        box.innerHTML = records
+          .map(
+            (r) => `
+          <div class="record-card">
+            <h4>${r.patientName || "No Patient Name"}</h4>
+            <p><b>Agreement No:</b> ${r.agreementNo || "-"}</p>
+            <p><b>Guardian:</b> ${r.guardian || "-"}</p>
+            <p><b>Contact:</b> ${r.contact || "-"}</p>
+            <p><b>Condition:</b> ${r.condition || "-"}</p>
+            <p><b>Duration:</b> ${r.start || "-"} to ${r.end || "-"}</p>
+            <p><b>Total:</b> Rs. ${r.total || "0"} | <b>Advance:</b> Rs. ${r.advance || "0"}</p>
+            <p><b>Saved At:</b> ${r.savedAt}</p>
+
+            <div>
+              ${(r.services || [])
+                .map((s) => `<span class="badge">${s}</span>`)
+                .join("")}
+            </div>
+
+            ${r.image ? `<img src="${r.image}" alt="Saved Agreement Image" />` : ""}
+
+            <div class="card-actions">
+              <button class="small-btn gray-btn" onclick="loadRecord(${r.id})">Load</button>
+              <button class="small-btn red-btn" onclick="deleteRecord(${r.id})">Delete</button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      /* =========================
+         CLEAR ALL
+      ========================== */
+      function clearSavedRecords() {
+        if (confirm("Kya aap sure hain? Saara saved data delete ho jayega.")) {
+          localStorage.removeItem("areeba_records");
+          showSavedRecords();
+          console.log("All saved records cleared");
+          alert("Saara saved data clear ho gaya.");
+        }
+      }
+
+      /* =========================
+         DOWNLOAD JPG (FIXED)
+      ========================== */
+      async function download() {
+        generate();
+
+        const template = document.getElementById("template");
+
+        try {
+          const canvas = await html2canvas(template, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff",
+            logging: false,
+            scrollX: 0,
+            scrollY: -window.scrollY,
+            windowWidth: document.documentElement.scrollWidth,
+            windowHeight: document.documentElement.scrollHeight,
+          });
+
+          const imageData = canvas.toDataURL("image/jpeg", 1.0);
+
+          const link = document.createElement("a");
+          link.href = imageData;
+          link.download = `Areeba_Medics_Agreement_${Date.now()}.jpg`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          console.log("JPG Download Successful");
+        } catch (error) {
+          console.error("Download Error:", error);
+          alert(
+            "Download me issue aa raha hai. Check image paths/logo/background.",
+          );
+        }
+      }
+
+      /* =========================
+         DOWNLOAD + SAVE
+      ========================== */
+      async function downloadAndSave() {
+        generate();
+
+        const template = document.getElementById("template");
+
+        try {
+          const canvas = await html2canvas(template, {
+            scale: 1.8,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff",
+            logging: false,
+            scrollX: 0,
+            scrollY: -window.scrollY,
+            windowWidth: document.documentElement.scrollWidth,
+            windowHeight: document.documentElement.scrollHeight,
+          });
+
+          const imageData = canvas.toDataURL("image/jpeg", 0.95);
+
+          const link = document.createElement("a");
+          link.href = imageData;
+          link.download = `Areeba_Medics_Agreement_${Date.now()}.jpg`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          saveRecord(imageData);
+        } catch (error) {
+          console.error("Save JPG + Data Error:", error);
+          alert("Image save me issue aa raha hai.");
+        }
+      }
+
+      /* =========================
+         INIT
+      ========================== */
+      window.onload = function () {
+        generate();
+        showSavedRecords();
+        enableLivePreview();
+      };
+    </script>
+  </body>
 </html>
