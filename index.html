@@ -1,41 +1,50 @@
 # AI Voice Command Interface
 
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Voice Command Interface</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>AI Voice Command Interface</h1>
-    <button id="start-button">शुरू करें</button>
-    <p id="status">स्थिति: तैयार</p>
+    <button id="start-record-btn">Start Recording</button>
+    <p id="status"></p>
     <script>
-        const startButton = document.getElementById('start-button');
-        const statusText = document.getElementById('status');
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
         
-        startButton.addEventListener('click', () => {
-            statusText.textContent = 'स्थिति: सुनना शुरू करें...';
-            startRecognition();
+        recognition.lang = 'hi-IN'; // Set language to Hindi
+        recognition.interimResults = false;
+
+        document.getElementById('start-record-btn').addEventListener('click', () => {
+            recognition.start();
+            document.getElementById('status').innerText = "Listening...";
         });
 
-        function startRecognition() {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'hi-IN';
-            recognition.interimResults = false;
+        recognition.onresult = (event) => {
+            const command = event.results[0][0].transcript;
+            document.getElementById('status').innerText = `You said: ${command}`;
+            executeCommand(command);
+        };
 
-            recognition.onresult = (event) => {
-                const command = event.results[0][0].transcript;
-                statusText.textContent = `आपने कहा: ${command}`;
-                // Add AI processing logic here
-            };
+        recognition.onerror = (event) => {
+            document.getElementById('status').innerText = `Error occurred in recognition: ${event.error}`;
+        };
 
-            recognition.onerror = (event) => {
-                statusText.textContent = 'स्थिति: त्रुटि हुई';
-            };
-
-            recognition.start();
+        function executeCommand(command) {
+            // Add your command execution logic here
+            if (command.includes("खोलो")) {
+                // Example command to open an application
+                alert("Opening application...");
+            } else if (command.includes("बंद करो")) {
+                // Example command to close an application
+                alert("Closing application...");
+            } else {
+                alert("Command not recognized.");
+            }
         }
     </script>
 </body>
