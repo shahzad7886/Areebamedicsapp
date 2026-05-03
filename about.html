@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Areeba Medics | Home Patient Care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --blue: #1f4e79;
+            --green: #4CAF50;
+            --white: #ffffff;
+            --light-bg: #f8fcf8;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { color: var(--text-dark); background-color: var(--white); line-height: 1.6; }
+        h1, h2, h3, h4 { color: var(--blue); }
+        a { text-decoration: none; }
+        .container { width: 90%; max-width: 1200px; margin: auto; padding: 60px 0; }
+        .text-center { text-align: center; }
+
+        /* Buttons */
+        .btn { padding: 12px 28px; border-radius: 30px; font-weight: 600; display: inline-block; cursor: pointer; transition: 0.3s; }
+        .btn-blue { background: var(--blue); color: var(--white); border: 2px solid var(--blue); }
+        .btn-blue:hover { background: transparent; color: var(--blue); }
+        .btn-green { background: var(--green); color: var(--white); border: 2px solid var(--green); }
+        .btn-green:hover { background: transparent; color: var(--green); }
+
+        /* Header */
+        header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; }
+        .logo img { height: 50px; }
+        .nav-links a { margin-left: 20px; color: var(--blue); font-weight: 600; }
+        .nav-links a:hover { color: var(--green); }
+
+        /* Page Banner */
+        .page-banner {
+            background: linear-gradient(rgba(31, 78, 121, 0.85), rgba(31, 78, 121, 0.85)), url('https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .page-banner h1 { color: var(--white); font-size: 3rem; margin-bottom: 10px; }
+        .page-banner p { font-size: 1.1rem; }
+
+        /* Section Elements */
+        .section-title { font-size: 2.2rem; margin-bottom: 40px; }
+        .section-title span { color: var(--green); }
+
+        /* About Grid Layout */
+        .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: center; }
+        .about-text h3 { font-size: 1.8rem; margin-bottom: 15px; }
+        .about-text p { color: var(--text-light); margin-bottom: 20px; font-size: 1.05rem; }
+        .about-image { border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Values Section */
+        .values-bg { background: var(--light-bg); }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .value-card { background: var(--white); padding: 35px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; border-bottom: 4px solid var(--blue); transition: 0.3s; }
+        .value-card:hover { transform: translateY(-8px); border-bottom: 4px solid var(--green); }
+        .value-card i { font-size: 2.5rem; color: var(--green); margin-bottom: 20px; }
+        .value-card h4 { margin-bottom: 12px; font-size: 1.3rem; }
+        .value-card p { color: var(--text-light); font-size: 0.95rem; }
+
+        /* CTA Section */
+        .cta-section { background: var(--blue); color: var(--white); text-align: center; padding: 60px 20px; }
+        .cta-section h2, .cta-section p { color: var(--white); margin-bottom: 20px; }
+
+        /* Footer */
+        footer { background: #11324f; color: var(--white); text-align: center; padding: 25px; }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 100; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: 0.3s;}
+        .whatsapp-float:hover { background-color: #128C7E; transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="areebalogo.png" alt="Areeba Medics Logo">
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="service.html">Services</a>
+               <a href="about.html">About Us</a>
+                <a href="index.html#gallery">Gallery</a>
+                <a href="#contact" class="btn btn-green" style="color:#fff; margin-left:20px;">Book Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-banner">
+        <h1>About Areeba Medics</h1>
+        <p>Your Trusted Partner for Home Nursing, Elderly Care, and Patient Attendant Services in Rawalpindi & Islamabad.</p>
+    </section>
+
+    <section class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2 class="section-title">Compassionate <span>Healthcare at Home</span></h2>
+                <h3>Dedicated to the Well-being of Your Loved Ones</h3>
+                <p>
+                    <strong>Areeba Medics</strong> was established with a singular mission: to deliver hospital-level healthcare and compassionate assistance within the comfort and safety of your own home. We recognize the challenges and worries that come with patient care, which is why we connect you with background-verified, highly trained medical professionals across Islamabad and Rawalpindi.
+                </p>
+                <p>
+                    Whether it's post-surgical nursing, elderly support, physiotherapy, or short-term medical equipment rental, we treat your family members with the utmost dignity and respect. Our services are available around the clock, ensuring that you receive professional support exactly when you need it most.
+                </p>
+                <a href="tel:03259965766" class="btn btn-blue" style="margin-top: 10px;"><i class="fas fa-phone-alt"></i> Speak with Our Team</a>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1551883767-175653ed42a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Compassionate Care Areeba Medics">
+            </div>
+        </div>
+    </section>
+
+    <section class="values-bg">
+        <div class="container">
+            <h2 class="section-title text-center">Our Core <span>Values</span></h2>
+            <div class="values-grid">
+                
+                <div class="value-card">
+                    <i class="fas fa-user-md"></i>
+                    <h4>Professional Expertise</h4>
+                    <p>Every team member is verified, tested, and specially trained to handle emergency and long-term care conditions effectively.</p>
+                </div>
+
+                <div class="value-card">
+                    <i class="fas fa-hands-heart"></i>
+                    <h4>Patient-Centric Approach</h4>
+                    <p>We treat our clients like family, ensuring emotional support and empathy go hand-in-hand with medical treatments.</p>
+                </div>
+
+                <div class="value-card">
+                    <i class="fas fa-balance-scale"></i>
+                    <h4>Transparent & Affordable</h4>
+                    <p>We provide premium healthcare services without hidden fees, offering the best packages in the twin cities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <h2>Experience Reliable Healthcare Today</h2>
+        <p>Let our dedicated and professional caregivers assist you in the comfort of your home.</p>
+        <div>
+            <a href="tel:03259965766" class="btn btn-green" style="margin-right: 15px;"><i class="fas fa-phone-alt"></i> Call Now: 0325 9965766</a>
+            <a href="https://wa.me/923259965766" class="btn btn-blue"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo" style="margin-bottom: 15px;">
+            <img src="areebalogo.png" alt="Areeba Medics Logo" style="height: 60px; background: white; padding: 5px; border-radius: 5px;">
+        </div>
+        <p>&copy; 2026 Areeba Medics - Home Patient Care. All Rights Reserved.</p>
+    </footer>
+
+    <a href="https://wa.me/923259965766" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
