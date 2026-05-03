@@ -99,4 +99,223 @@
         footer { background: #11324f; color: var(--white); text-align: center; padding: 20px; }
 
         /* Floating WhatsApp Button */
-        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius:
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 100; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: 0.3s;}
+        .whatsapp-float:hover { background-color: #128C7E; transform: scale(1.1); }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .split-section, .contact-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Add hamburger menu for actual dev */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/200x60/1f4e79/ffffff?text=Areeba+Medics+Logo" alt="Areeba Medics Logo">
+            </div>
+            <nav class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#about">About</a>
+                <a href="#contact" class="btn btn-green" style="color:#fff; margin-left:20px;">Book Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Healthcare at <span>Your Doorstep</span></h1>
+        <p>Professional Home Patient Care Services in Islamabad & Rawalpindi</p>
+        <div>
+            <a href="tel:03259965766" class="btn btn-green"><i class="fas fa-phone-alt"></i> Call Now</a>
+            <a href="#contact" class="btn btn-blue"><i class="far fa-calendar-check"></i> Book Appointment</a>
+        </div>
+    </section>
+
+    <section id="services" class="services-bg">
+        <div class="container text-center">
+            <h2 class="section-title">Our <span>Medical Services</span></h2>
+            <div class="grid-3">
+                <div class="card">
+                    <i class="fas fa-user-nurse"></i>
+                    <h3>Home Nursing Care</h3>
+                    <p>Professional nurses providing comprehensive medical care and monitoring in the comfort of your home.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Patient Attendants</h3>
+                    <p>Reliable male and female attendants for daily living assistance, hygiene, and mobility support.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-blind"></i>
+                    <h3>Elderly Care</h3>
+                    <p>Compassionate care for senior citizens, ensuring their safety, medication management, and well-being.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-running"></i>
+                    <h3>Physiotherapy at Home</h3>
+                    <p>Expert physical therapists helping you recover mobility, strength, and relieve pain at your residence.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-syringe"></i>
+                    <h3>IV Drips & Injections</h3>
+                    <p>Safe and hygienic administration of IV fluids, injections, and medications by certified staff.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-wheelchair"></i>
+                    <h3>Medical Equipment</h3>
+                    <p>Sale and rental of oxygen cylinders, hospital beds, wheelchairs, and other essential medical supplies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container text-center">
+            <h2 class="section-title">Why Choose <span>Areeba Medics</span></h2>
+            <div class="why-us-grid">
+                <div class="why-card">
+                    <i class="fas fa-user-check"></i>
+                    <h4>Trusted & Verified</h4>
+                    <p>Fully background-checked staff</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>24/7 Availability</h4>
+                    <p>Round-the-clock patient care</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-tags"></i>
+                    <h4>Affordable Packages</h4>
+                    <p>High-quality care within budget</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h4>Quick Response</h4>
+                    <p>Immediate medical assistance</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h4>Compassionate Care</h4>
+                    <p>Treating patients like family</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="services-bg">
+        <div class="container">
+            <h2 class="section-title text-center">Our <span>Gallery</span></h2>
+            <p class="text-center" style="margin-bottom: 30px;">Real moments of care from Areeba Medics.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?auto=format&fit=crop&w=500&q=60" alt="Patient Care">
+                    <div class="gallery-overlay">Patient Care</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=500&q=60" alt="Physiotherapy">
+                    <div class="gallery-overlay">Physiotherapy</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1538108149393-cebb3315a6b0?auto=format&fit=crop&w=500&q=60" alt="Medical Equipment">
+                    <div class="gallery-overlay">Medical Equipment</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=500&q=60" alt="Our Staff">
+                    <div class="gallery-overlay">Our Dedicated Staff</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container split-section">
+            <div>
+                <h2 class="section-title" style="margin-bottom: 20px;">Areas <span>We Serve</span></h2>
+                <p style="margin-bottom: 20px;">Providing prompt home healthcare services across the twin cities.</p>
+                <div style="display: flex; gap: 40px;">
+                    <div>
+                        <h4 style="color: var(--blue); margin-bottom: 10px;">Islamabad</h4>
+                        <ul class="areas-list">
+                            <li>DHA (All Phases)</li>
+                            <li>G-13, G-14</li>
+                            <li>F-8, F-10, F-11</li>
+                            <li>Bahria Enclave</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--blue); margin-bottom: 10px;">Rawalpindi</h4>
+                        <ul class="areas-list">
+                            <li>Bahria Town</li>
+                            <li>Saddar</li>
+                            <li>Chaklala Scheme III</li>
+                            <li>Askari</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="section-title" style="margin-bottom: 20px;">Client <span>Testimonials</span></h2>
+                <div class="testimonial-card">
+                    "Areeba Medics provided an excellent attendant for my father. The staff was professional, punctual, and very compassionate."
+                    <div class="testimonial-author">- Ahmed R., DHA Islamabad</div>
+                </div>
+                <div class="testimonial-card">
+                    "We rented a hospital bed and oxygen cylinder. Delivery was quick, and the home nursing service is top-notch."
+                    <div class="testimonial-author">- Fatima S., Bahria Town Rawalpindi</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-bg">
+        <div class="container">
+            <h2 class="section-title text-center" style="color:var(--white);">Get In <span>Touch</span></h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <br>
+                    <p><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> 0325 9965766</p>
+                    <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> 0325 9965766</p>
+                    <p><i class="fas fa-globe"></i> <strong>Website:</strong> areebamedics.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Islamabad & Rawalpindi, Pakistan</p>
+                </div>
+                
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <input type="text" placeholder="Your Full Name" required>
+                        <input type="tel" placeholder="Your Phone Number" required>
+                        <select required>
+                            <option value="" disabled selected>Select Service Needed</option>
+                            <option value="nursing">Home Nursing Care</option>
+                            <option value="attendant">Patient Attendant</option>
+                            <option value="elderly">Elderly Care</option>
+                            <option value="physio">Physiotherapy</option>
+                            <option value="drip">IV Drips & Injections</option>
+                            <option value="equipment">Medical Equipment</option>
+                        </select>
+                        <textarea placeholder="Any specific requirements or patient details?"></textarea>
+                        <button type="submit" class="btn btn-green" style="width: 100%;">Book Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo" style="margin-bottom: 15px;">
+            <img src="https://via.placeholder.com/200x60/11324f/ffffff?text=Areeba+Medics+Logo" alt="Areeba Medics Footer Logo">
+        </div>
+        <p>&copy; 2026 Areeba Medics - Home Patient Care. All Rights Reserved.</p>
+    </footer>
+
+    <a href="https://wa.me/923259965766" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
