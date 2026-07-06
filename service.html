@@ -3,218 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services & Charges - Areeba Medics</title>
+    <title>Equipment on Rent - Areeba Medics</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
     <style>
         :root {
-            --blue: #1f4e79;
-            --green: #4CAF50;
-            --white: #ffffff;
-            --light-bg: #f8fcf8;
+            --primary-blue: #0b3c5d;
+            --secondary-blue: #002d62;
+            --green: #2ca544;
+            --light-green: #eaf6ec;
             --text-dark: #333333;
-            --text-light: #666666;
+            --text-muted: #666666;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --border-color: #e1e8ed;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { color: var(--text-dark); background-color: var(--white); line-height: 1.6; }
-        h1, h2, h3, h4 { color: var(--blue); }
-        a { text-decoration: none; }
-        .container { width: 90%; max-width: 1200px; margin: auto; padding: 60px 0; }
-        .text-center { text-align: center; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        /* Buttons */
-        .btn { padding: 12px 28px; border-radius: 30px; font-weight: 600; display: inline-block; cursor: pointer; transition: 0.3s; }
-        .btn-blue { background: var(--blue); color: var(--white); border: 2px solid var(--blue); }
-        .btn-blue:hover { background: transparent; color: var(--blue); }
-        .btn-green { background: var(--green); color: var(--white); border: 2px solid var(--green); }
-        .btn-green:hover { background: transparent; color: var(--green); }
+        body {
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
 
-        /* Header */
-        header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; }
-        .logo img { height: 50px; }
-        .nav-links a { margin-left: 20px; color: var(--blue); font-weight: 600; }
-        .nav-links a:hover { color: var(--green); }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-        /* Page Banner */
-        .page-banner {
-            background: linear-gradient(rgba(31, 78, 121, 0.85), rgba(31, 78, 121, 0.85)), url('https://images.unsplash.com/photo-1586773860414-d5ced2c0a85a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
-            color: var(--white);
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
             text-align: center;
-            padding: 80px 20px;
         }
-        .page-banner h1 { color: var(--white); font-size: 3rem; margin-bottom: 10px; }
-        .page-banner p { font-size: 1.1rem; }
 
-        /* Section Title */
-        .section-title { font-size: 2.2rem; margin-bottom: 40px; }
-        .section-title span { color: var(--green); }
+        .btn-primary { background-color: var(--secondary-blue); color: var(--white); }
+        .btn-primary:hover { background-color: var(--primary-blue); }
+        .btn-green { background-color: var(--green); color: var(--white); }
+        .btn-green:hover { background-color: #238536; }
 
-        /* Pricing Table Grid */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .price-card {
+        /* Top Bar & Nav inherited directly from image.png styling */
+        .top-bar {
+            background-color: var(--white);
+            border-bottom: 1px solid #eeeeee;
+            padding: 10px 0;
+            font-size: 13px;
+        }
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h2 { color: var(--secondary-blue); font-weight: 800; display: flex; align-items: center; gap: 5px; }
+        .info-items { display: flex; gap: 25px; }
+        .info-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+        .info-item i { color: var(--secondary-blue); font-size: 16px; }
+
+        .main-nav { background-color: var(--secondary-blue); }
+        .main-nav ul { display: flex; list-style: none; }
+        .main-nav ul li a { display: block; padding: 15px 20px; color: var(--white); text-decoration: none; font-size: 14px; text-transform: uppercase; font-weight: 600; }
+        .main-nav ul li .active { background-color: var(--primary-blue); }
+
+        /* Breadcrumb Header */
+        .breadcrumb-bar {
+            background-color: var(--bg-light);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .breadcrumb {
+            display: flex;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        .breadcrumb a { color: var(--secondary-blue); text-decoration: none; }
+
+        /* Product Catalog Matrix & Filters */
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            padding: 50px 0;
+        }
+
+        /* Sidebar Filter Columns */
+        .filter-sidebar h3 {
+            color: var(--secondary-blue);
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--green);
+        }
+        .filter-group {
+            margin-bottom: 30px;
+        }
+        .filter-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        /* Product Catalog Grid */
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .catalog-header h1 { color: var(--secondary-blue); font-size: 28px; }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
             background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-            padding: 35px 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px 20px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border-top: 5px solid var(--blue);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .price-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(31, 78, 121, 0.15);
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: var(--green);
         }
-        .price-card.featured { border-top: 5px solid var(--green); }
-        .price-card i { font-size: 3rem; color: var(--green); margin-bottom: 15px; }
-        .price-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
-        .price-card .desc { color: var(--text-light); font-size: 0.95rem; margin-bottom: 20px; min-height: 60px; }
-        .price-card .price { font-size: 1.8rem; font-weight: 700; color: var(--blue); margin-bottom: 5px; }
-        .price-card .duration { font-size: 0.85rem; color: var(--text-light); margin-bottom: 25px; display: block; }
-        .price-card .btn { width: 100%; padding: 12px 0; }
 
-        /* CTA Section */
-        .cta-section { background: var(--blue); color: var(--white); text-align: center; padding: 60px 20px; }
-        .cta-section h2, .cta-section p { color: var(--white); margin-bottom: 20px; }
+        .product-image {
+            height: 160px;
+            background-color: var(--bg-light);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .product-image i { font-size: 70px; color: #a0aec0; }
 
-        /* Footer */
-        footer { background: #11324f; color: var(--white); text-align: center; padding: 25px; }
+        .product-card h4 { font-size: 16px; color: var(--secondary-blue); margin-bottom: 10px; }
+        .product-status { font-size: 12px; color: var(--green); font-weight: 700; margin-bottom: 10px; text-transform: uppercase;}
         
-        /* WhatsApp Floating Button */
-        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 100; display: flex; justify-content: center; align-items: center; text-decoration: none; transition: 0.3s;}
-        .whatsapp-float:hover { background-color: #128C7E; transform: scale(1.1); }
+        .product-price { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+        .product-price span { display: block; font-size: 18px; font-weight: 700; color: var(--secondary-blue); margin-top: 4px; }
+
+        /* Trust Micro-banner */
+        .micro-trust {
+            background-color: var(--light-green);
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+        }
+        .micro-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .micro-item i { font-size: 28px; color: var(--green); margin-bottom: 10px; }
+        .micro-item h5 { color: var(--secondary-blue); font-size: 15px; margin-bottom: 5px; }
+        .micro-item p { font-size: 12px; color: var(--text-muted); }
+
+        /* Footer Inherited Elements */
+        footer { background-color: #051d2d; color: #a0aec0; padding: 60px 0 20px 0; font-size: 14px; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { color: var(--white); margin-bottom: 20px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #a0aec0; text-decoration: none; }
+        .footer-bottom { border-top: 1px solid #1a364a; padding-top: 20px; display: flex; justify-content: space-between; font-size: 12px; }
+
+        @media (max-width: 992px) {
+            .catalog-layout { grid-template-columns: 1fr; }
+            .filter-sidebar { display: none; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 576px) {
+            .products-grid { grid-template-columns: 1fr; }
+            .micro-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
+    <div class="top-bar">
+        <div class="container">
             <div class="logo">
-                <img src="areebalogo.png" alt="Areeba Medics Logo">
+                <h2><i class="fa-solid fa-house-medical" style="color: var(--green);"></i> AREEBA MEDICS</h2>
             </div>
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="service.html">Services</a>
-               <a href="about.html">About Us</a>
-                <a href="index.html#gallery">Gallery</a>
-                <a href="#contact" class="btn btn-green" style="color:#fff; margin-left:20px;">Book Now</a>
-            </nav>
-        </div>
-    </header>
-
-    <section class="page-banner">
-        <h1>Our Services & Charges</h1>
-        <p>Transparent, affordable, and professional healthcare at your doorstep in Islamabad & Rawalpindi.</p>
-    </section>
-
-    <section class="container">
-        <h2 class="section-title text-center">Healthcare <span>Packages</span></h2>
-        
-        <div class="pricing-grid">
-            <div class="price-card featured">
-                <div>
-                    <i class="fas fa-user-nurse"></i>
-                    <h3>Home Nursing Care</h3>
-                    <p class="desc">Professional monitoring, medication administration, and post-surgical support.</p>
-                    <span class="price">Rs. 75,000 - 80,000</span>
-                    <span class="duration">per month</span>
-                </div>
-                <div>
-                    <a href="https://wa.me/923259965766" class="btn btn-green">Book Nursing Care</a>
-                </div>
-            </div>
-
-            <div class="price-card">
-                <div>
-                    <i class="fas fa-hands-helping"></i>
-                    <h3>Patient Attendants</h3>
-                    <p class="desc">Reliable and trained male/female staff to assist with daily living and personal hygiene.</p>
-                    <span class="price">Rs. 55,000 - 65,000</span>
-                    <span class="duration">per month</span>
-                </div>
-                <div>
-                    <a href="https://wa.me/923259965766" class="btn btn-blue">Book Attendant</a>
-                </div>
-            </div>
-
-            <div class="price-card">
-                <div>
-                    <i class="fas fa-blind"></i>
-                    <h3>Elderly Care</h3>
-                    <p class="desc">Compassionate companionship and daily health tracking tailored for senior citizens.</p>
-                    <span class="price">Rs. 50,000 - 60,000</span>
-                    <span class="duration">per month</span>
-                </div>
-                <div>
-                    <a href="https://wa.me/923259965766" class="btn btn-blue">Book Elderly Care</a>
-                </div>
-            </div>
-
-            <div class="price-card">
-                <div>
-                    <i class="fas fa-running"></i>
-                    <h3>Physiotherapy at Home</h3>
-                    <p class="desc">Expert physical therapy targeting pain relief, stroke recovery, and mobility restoration.</p>
-                    <span class="price">Rs. 5,000</span>
-                    <span class="duration">per session</span>
-                </div>
-                <div>
-                    <a href="https://wa.me/923259965766" class="btn btn-blue">Book Physiotherapist</a>
-                </div>
-            </div>
-
-            <div class="price-card">
-                <div>
-                    <i class="fas fa-syringe"></i>
-                    <h3>IV Drips & Injections</h3>
-                    <p class="desc">Safe administration of doctor-prescribed medication and IV fluids by certified medical staff.</p>
-                    <span class="price">Rs. 2500 - 5,000</span>
-                    <span class="duration">per visit</span>
-                </div>
-                <div>
-                    <a href="https://wa.me/923259965766" class="btn btn-blue">Request Service</a>
-                </div>
-            </div>
-
-            <div class="price-card featured">
-                <div>
-                    <i class="fas fa-wheelchair"></i>
-                    <h3>Medical Equipment</h3>
-                    <p class="desc">Rental and sale of hospital beds, oxygen concentrators, wheelchairs, and monitors.</p>
-                    <span class="price">Starting Rs. 3,000</span>
-                    <span class="duration">per month / equipment</span>
-                </div>
-                <div>
-                    <a href="https://wa.me/923259965766" class="btn btn-green">Check Availability</a>
-                </div>
+            <div class="info-items">
+                <div class="info-item"><i class="fa-solid fa-phone"></i> <div><strong>Need Help?</strong>0325-9965766</div></div>
+                <a href="#" class="btn btn-green"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="cta-section" id="contact">
-        <h2>Need Customized Care or Packages?</h2>
-        <p>Contact our support team directly to discuss the specific medical requirements for your loved ones.</p>
-        <div>
-            <a href="tel:03259965766" class="btn btn-green" style="margin-right: 15px;"><i class="fas fa-phone-alt"></i> Call: 0325 9965766</a>
-            <a href="https://wa.me/923259965766" class="btn btn-blue"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Home Care Services</a></li>
+                <li><a href="#" class="active">Equipment on Rent</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Online Consultation</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="breadcrumb-bar">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="#">Home</a> <span>/</span> <span>Equipment on Rent</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="catalog-layout">
+            
+            <aside class="filter-sidebar">
+                <div class="filter-group">
+                    <h3>Categories</h3>
+                    <label><input type="checkbox" checked> All Equipment</label>
+                    <label><input type="checkbox"> Beds & Accessories</label>
+                    <label><input type="checkbox"> Respiratory Care</label>
+                    <label><input type="checkbox"> Mobility Solutions</label>
+                    <label><input type="checkbox"> Monitoring Devices</label>
+                </div>
+                <div class="filter-group">
+                    <h3>Duration Options</h3>
+                    <label><input type="radio" name="dur"> Daily Basis</label>
+                    <label><input type="radio" name="dur"> Weekly Basis</label>
+                    <label><input type="radio" name="dur" checked> Monthly Basis</label>
+                </div>
+            </aside>
+
+            <main class="products-container">
+                <div class="catalog-header">
+                    <h1>Medical Equipment Rental Catalog</h1>
+                    <span style="font-size: 14px; color: var(--text-muted);">Showing 1–6 of 15 items</span>
+                </div>
+
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <div class="product-image"><i class="fa-solid fa-bed"></i></div>
+                            <span class="product-status">Available</span>
+                            <h4>Hospital Bed (Manual 2-Function)</h4>
+                        </div>
+                        <div>
+                            <div class="product-price">Rental Rate <span>Rs. 800 / Day</span></div>
+                            <button class="btn btn-green" style="width: 100%;">Rent This Item</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div>
+                            <div class="product-image"><i class="fa-solid fa-box-tissue"></i></div>
+                            <span class="product-status">Available</span>
+                            <h4>Oxygen Concentrator (5 Liters)</h4>
+                        </div>
+                        <div>
+                            <div class="product-price">Rental Rate <span>Rs. 1,500 / Day</span></div>
+                            <button class="btn btn-green" style="width: 100%;">Rent This Item</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div>
+                            <div class="product-image"><i class="fa-solid fa-wheelchair"></i></div>
+                            <span class="product-status">Available</span>
+                            <h4>Foldable Wheelchair Light</h4>
+                        </div>
+                        <div>
+                            <div class="product-price">Rental Rate <span>Rs. 200 / Day</span></div>
+                            <button class="btn btn-green" style="width: 100%;">Rent This Item</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div>
+                            <div class="product-image"><i class="fa-solid fa-bed-pulse"></i></div>
+                            <span class="product-status">Available</span>
+                            <h4>ICU Electric Bed (3-Function)</h4>
+                        </div>
+                        <div>
+                            <div class="product-price">Rental Rate <span>Rs. 2,000 / Day</span></div>
+                            <button class="btn btn-green" style="width: 100%;">Rent This Item</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div>
+                            <div class="product-image"><i class="fa-solid fa-sheet-plastic"></i></div>
+                            <span class="product-status">Available</span>
+                            <h4>BiPAP / CPAP Machine</h4>
+                        </div>
+                        <div>
+                            <div class="product-price">Rental Rate <span>Rs. 1,500 / Day</span></div>
+                            <button class="btn btn-green" style="width: 100%;">Rent This Item</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div>
+                            <div class="product-image"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <span class="product-status" style="color: #e53e3e;">Out of Stock</span>
+                            <h4>Patient Vital Sign Monitor</h4>
+                        </div>
+                        <div>
+                            <div class="product-price">Rental Rate <span>Rs. 1,200 / Day</span></div>
+                            <button class="btn btn-primary" style="width: 100%; background-color:#718096;" disabled>Join Waiting List</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <section class="micro-trust">
+        <div class="container">
+            <div class="micro-grid">
+                <div class="micro-item">
+                    <i class="fa-solid fa-truck-ramp-box"></i>
+                    <h5>Flexible Rentals</h5>
+                    <p>Daily, Weekly, Monthly cycles</p>
+                </div>
+                <div class="micro-item">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <h5>Fast Delivery</h5>
+                    <p>Across Islamabad & Rawalpindi</p>
+                </div>
+                <div class="micro-item">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <h5>Clean & Sanitized</h5>
+                    <p>Sterilized before every single use</p>
+                </div>
+                <div class="micro-item">
+                    <i class="fa-solid fa-headset"></i>
+                    <h5>24/7 Support</h5>
+                    <p>We are always here to help you</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
-        <div class="logo" style="margin-bottom: 15px;">
-            <img src="areebalogo.png" alt="Areeba Medics Footer Logo" style="height: 60px; background: white; padding: 5px; border-radius: 5px;">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3 style="color:var(--white); margin-bottom:15px;"><i class="fa-solid fa-house-medical" style="color: var(--green);"></i> AREEBA MEDICS</h3>
+                    <p>Your trusted home-care partner in twin cities.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home Care Services</a></li>
+                        <li><a href="#">Equipment on Rent</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><a href="#">Nursing Care</a></li>
+                        <li><a href="#">ICU Care at Home</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p style="font-size: 13px; color: #cbd5e0;"><i class="fa-solid fa-location-dot" style="color:var(--green)"></i> Islamabad, Pakistan</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Areeba Medics Home Patient Care. All Rights Reserved.</p>
+            </div>
         </div>
-        <p>&copy; 2026 Areeba Medics - Home Patient Care. All Rights Reserved.</p>
     </footer>
-
-    <a href="https://wa.me/923259965766" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
 
 </body>
 </html>
